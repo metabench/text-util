@@ -1,0 +1,145 @@
+// --- Top‐of‐File / General Meta Comments ---
+// [From near the top of text_util.js]
+// "Maybe some Text_Relevancy_Filter class / classes should be made (elsewhere - relevant to what specifically?)"
+// "Relevant for what exactly being an important question. Could use different relevancy filters and instances of the relevant classes."
+//
+// Extra details: These comments indicate that further modular filtering classes (perhaps to differentiate code versus prose)
+// might eventually be added to structure text analysis based on relevance.
+
+// --- URL Module Replacement ---
+// [From the liburl definition near the top]
+// In the browser branch we use the native URL API instead of Node’s url module.
+// Extra details: This ensures functionality on both server‐ and client‑side by providing a “parse” implementation using new URL().
+
+// --- clone_node Function ---
+// [Before the function “clone_node”]
+// Comments such as: 
+// "if (node.type === 'tag') { ... clone attributes and recursively clone children, then reset the parent }"
+// "Else if node is text, comment, directive, or cdata: return a copy without a parent."
+//
+// Extra details: This function copies a node deeply but omits the parent pointer to avoid circular references,
+// making it appropriate for transforming or re‐serializing a sub‐tree of an HTML document.
+
+// --- strip_attributes / strip_attributes_and_text Functions ---
+// [Immediately above each function definition]
+// "Remove all attributes from the node" (and accordingly, the text content in the other variants)
+// "Recursively strip attributes (and text or inner SVG children) from child nodes"
+// 
+// Extra details: These functions normalize HTML by stripping extra information so you can compare structures
+// and potentially compress or hash them later.
+
+// --- analyzeText Function ---
+// [Inside analyzeText function]
+// Several inline comments mark what each regex match does, e.g. counting spaces, full stops, semicolons, etc.
+// "Character by character, adding to totals, returning the object with the counts."
+//
+// Extra details: The function returns various counts and also calculated ratios (such as spaceToFullStopRatio)
+// which are later used to help decide if a string likely represents code or prose.
+
+// --- indicate_is_computer_language ---
+// [Inside the indicate_is_computer_language function]
+// Comments indicate ideas such as:
+// "filter_out_code_text, is_code_text?, is_human_language?"
+// "Maybe a confidence level even? Could score on various criteria?"
+// "square bracket to length ratio???"
+// and thresholds for doubleQuoteToSpaceRatio, fullStop counts etc.
+//
+// Extra details: These comments document the experimental heuristics being used to differentiate computer code 
+// from natural language text. They also hint that the logic might be expanded or refined in the future.
+
+// --- iterate_html_document_nodes ---
+// [Inside the generator function iterate_html_document_nodes]
+// Comments include sample pseudocode for iterables, suggestions to use buffering, and notes about efficiency.
+// For example: 
+// "Looks like it will need to put them into a buffer before they are available for 'next'."
+// "This may be the kind of work on the lower level that provides a nicer higher level syntax."
+//
+// Extra details: Although these are development notes, they guide the reader on possible improvements for better iteration over HTML nodes.
+
+// --- get_html_document_text_nodes ---
+// [Within the get_html_document_text_nodes function]
+// Comments mention ideas:
+// "Standard filtering...? The ones that render", "Trim excess (that does not render) white space?"
+// "could run it through a filter function."
+//
+// Extra details: These comments help explain why the function trims text and uses a filter callback.
+// They signal that the function is designed to collect text nodes for further processing (for example, to store in a database).
+
+// --- get_html_document_a_elements ---
+// [Above and within the function]
+// Comments explain the rationale behind processing <a> elements separately.
+// "including the actual html could be useful too!"
+// "Don't particularly need the inner text nodes... can keep the link records minimal."
+// "Maybe want compressed text storage, as well as indexing."
+//
+// Extra details: These comments document the decisions made on capturing hyperlink information (like href, start_pos, etc.).
+// They provide hints to future developers on expanding inner text extraction and indexing.
+
+// --- site_url_from_page_url ---
+// [Immediately before the function]
+// "Just after the domain name."
+//
+// Extra details: This simple helper extracts a site’s root URL from a full page URL.
+
+// --- join_url_parts ---
+// [Inside join_url_parts function]
+// "Check if sub-string starts with '/' and adjust trailing slash accordingly."
+//
+// Extra details: This comment explains the logic for correctly joining URL parts, ensuring that extra slashes are removed where necessary.
+
+// --- normalise_linked_url ---
+// [At the start of normalise_linked_url]
+// Comments note several conditions:
+// "Need to work out the site (root) URL from the page url."
+// "If linked_url starts with http:// or https://, return it. Otherwise, handle relative URLs or hash links."
+//
+// Extra details: This block of comments details the behavior when normalizing links:
+// how it differentiates between absolute URLs, root-relative paths, and fragment identifiers.
+// It signals future work with archive_url and more robust handling.
+
+// --- get_scheme_based_authority and is_simple_url ---
+// [Before these helper functions]
+// Comments here help clarify that these functions parse URLs to return a scheme-based authority or a boolean based on URL simplicity.
+//
+// Extra details: They document the use of URL parsing and conditions (such as URL length, hash presence, query parameters) 
+// that determine if a URL is “simple” enough for further processing.
+
+// --- compress_sync, decompress_sync, calc_hash_256bit ---
+// [Above each of these functions]
+// Minimal comments indicate they use Brotli compression/decompression and SHA-256 hashing.
+// Extra details: They serve to transform large text blobs into compressed formats or hash digests,
+// which are useful for storage and comparison.
+
+// --- remake_trim_html, remake_html_to_els_structure, remake_html ---
+// [Around these functions]
+// Comments indicate that these functions process HTML to remove non-rendered whitespace,
+// strip out unwanted elements (like scripts, comments, SVGs) and optionally rebuild a simplified DOM structure.
+//
+// Extra details: The comments help the reader understand that the purpose is to normalize HTML documents
+// while preserving essential structural elements.
+// They also note ideas for alternatives (for example, building a new DOM tree).
+
+// --- read_first_tag_name and outerHTML ---
+// [Before these utility functions]
+// Comments describe how the first tag is identified and how outerHTML is computed.
+// Extra details: They explain that read_first_tag_name extracts the tag name from the beginning of an HTML string,
+// and outerHTML helps create a string representation of a particular element.
+
+// --- Character and Unicode-related Functions ---
+// [Sections including get_char_info, lazy_lookup_get_char_info, iterate_chars, iterate_string_chars_info, iterate_char_type_groups_tokenize_string]
+// Comments here document how characters are classified (letter, number, punctuation) and how tokens are generated.
+// For example, comments like "Check if the character is a letter" and "Detect single inner text?"
+// also mention using a lookup table or lazy caching.
+//
+// Extra details: These comments serve to explain the logic behind character analysis and tokenizing strings,
+// which is critical for text analysis or compression. They also note that further refinement or a more detailed
+// Unicode model might be desirable.
+
+// --- Module Exports ---
+// [At the end of the file]
+// Comments essentially list the exported functions.
+// Extra details: This informs the reader which parts of the module’s functionality are available for use elsewhere.
+
+...existing code...
+// Note: Other comments (particularly those that are commented-out console.logs or development traces) were not included here,
+// as they are not critical for understanding the main logic but rather serve as debugging aids during development.

@@ -1,0 +1,23 @@
+{
+  "name": "txt-util",
+  "version": "0.0.1",
+  "description": "A text utility library",
+  "main": "text_util.js",
+  "dependencies": {
+    "lang-mini": "^0.0.39",
+    "cheerio": "^1.0.0",
+    "htmlparser2": "^10.0.0",
+    "domhandler": "^5.0.3",
+    "dom-serializer": "^2.0.0"
+  },
+  "browser": {
+    "crypto": "crypto-browserify",
+    "zlib": "browserify-zlib",
+    "stream": "stream-browserify"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "James Vickers",
+  "license": "MIT"
+}
